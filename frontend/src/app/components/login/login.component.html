@@ -1,0 +1,33 @@
+<!-- src/app/components/register/register.component.html -->
+
+<div class="navbar">
+    <img src="/logo.png" alt="Logo" class="logo" />
+</div>
+
+<div class="container">
+    <div class="image-container">
+        <img src="/login.png" alt="Login Illustration" class="login-illustration">
+    </div>
+
+<div class=" form-container">
+    <h2>Login Page</h2>
+    <form (ngSubmit)="onSubmit()">
+       
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" [(ngModel)]="user.email" name="email" required />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" [(ngModel)]="user.password" name="password" required />
+        </div>
+        
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+</div>
+
+
+
+

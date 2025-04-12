@@ -1,0 +1,127 @@
+<!-- src/app/components/jobseeker-profile/jobseeker-profile.component.html -->
+<div class="container mt-5">
+  <h1 class="text-center mb-4 text-primary">Job Seeker Profile</h1>
+
+  <form [formGroup]="profileForm" class="card p-4 mb-4 shadow-lg bg-light">
+    <!-- Basic Information Section -->
+    <h2 class="text-center mb-4">Basic Information</h2>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="name" class="form-label fw-bold">Name</label>
+        <input id="name" type="text" class="form-control" formControlName="name" placeholder="Enter your name" />
+        <div class="text-danger mt-1 small" *ngIf="profileForm.get('name')?.hasError('required') && profileForm.get('name')?.touched">
+          Name is required
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="phone" class="form-label fw-bold">Phone</label>
+        <input id="phone" type="text" class="form-control" formControlName="phone" placeholder="Enter your phone number" />
+        <div class="text-danger mt-1 small" *ngIf="profileForm.get('phone')?.hasError('required') && profileForm.get('phone')?.touched">
+          Phone is required
+        </div>
+        <div class="text-danger mt-1 small" *ngIf="profileForm.get('phone')?.hasError('pattern') && profileForm.get('phone')?.touched">
+          Phone must be a valid number (e.g., 1234567890)
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="location" class="form-label fw-bold">Location</label>
+        <input id="location" type="text" class="form-control" formControlName="location" placeholder="Enter your location" />
+        <div class="text-danger mt-1 small" *ngIf="profileForm.get('location')?.hasError('required') && profileForm.get('location')?.touched">
+          Location is required
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="portfolioLink" class="form-label fw-bold">Portfolio Link (Optional)</label>
+        <input id="portfolioLink" type="text" class="form-control" formControlName="portfolioLink" placeholder="Enter your portfolio link" />
+        <div class="text-danger mt-1 small" *ngIf="profileForm.get('portfolioLink')?.hasError('pattern') && profileForm.get('portfolioLink')?.touched">
+          Portfolio link must be a valid URL (e.g., https://example.com)
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button type="button" class="btn btn-primary btn-lg" (click)="onSubmitBasicInfo()" [disabled]="isSubmitting || profileForm.invalid">
+        {{ isSubmitting ? 'Saving...' : 'Save Basic Info' }}
+      </button>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="card p-4 mt-5 shadow-lg bg-light" *ngIf="savedProfileId">
+      <h2 class="text-center mb-4">Add Skills</h2>
+      <div formArrayName="skills">
+        <div *ngFor="let skillGroup of skillsFormArray.controls; let i = index">
+          <div [formGroupName]="i" class="row mb-4 p-3 border rounded bg-white shadow-sm">
+            <div class="col-md-3 mb-3">
+              <label [for]="'category-' + i" class="form-label fw-bold">Category</label>
+              <select [id]="'category-' + i" class="form-select" formControlName="category" (change)="updateSkillOptions(i)">
+                <option value="" disabled>Select a category</option>
+                <option *ngFor="let category of skillCategories" [value]="category.category_id">
+                  {{ category.category_name }}
+                </option>
+              </select>
+              <div class="text-danger mt-1 small" *ngIf="skillGroup.get('category')?.hasError('required') && skillGroup.get('category')?.touched">
+                Category is required
+              </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label [for]="'skill-' + i" class="form-label fw-bold">Skill</label>
+              <select [id]="'skill-' + i" class="form-select" formControlName="skill">
+                <option value="" disabled>Select a skill</option>
+                <option *ngFor="let skill of filteredSkills[i]" [value]="skill.skill_id">
+                  {{ skill.skill_name }}
+                </option>
+              </select>
+              <div class="text-danger mt-1 small" *ngIf="skillGroup.get('skill')?.hasError('required') && skillGroup.get('skill')?.touched">
+                Skill is required
+              </div>
+            </div>
+
+            <div class="col-md-2 mb-3">
+              <label [for]="'level-' + i" class="form-label fw-bold">Skill Level</label>
+              <select [id]="'level-' + i" class="form-select" formControlName="level">
+                <option value="" disabled>Select a level</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+              <div class="text-danger mt-1 small" *ngIf="skillGroup.get('level')?.hasError('required') && skillGroup.get('level')?.touched">
+                Skill level is required
+              </div>
+            </div>
+
+            <div class="col-md-2 mb-3">
+              <label [for]="'years-' + i" class="form-label fw-bold">Years of Experience</label>
+              <input [id]="'years-' + i" type="number" class="form-control" formControlName="years" min="0" placeholder="e.g., 2" />
+              <div class="text-danger mt-1 small" *ngIf="skillGroup.get('years')?.hasError('required') && skillGroup.get('years')?.touched">
+                Years of experience is required
+              </div>
+              <div class="text-danger mt-1 small" *ngIf="skillGroup.get('years')?.hasError('min') && skillGroup.get('years')?.touched">
+                Years of experience must be 0 or greater
+              </div>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+              <button type="button" class="btn btn-danger w-100" (click)="removeSkill(i)">Remove Skill</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <button type="button" class="btn btn-success btn-lg" (click)="addSkill()">Add Skill</button>
+        <button type="button" class="btn btn-primary btn-lg" (click)="onSubmitSkills()" [disabled]="isSubmitting || skillsFormArray.invalid">
+          {{ isSubmitting ? 'Saving...' : 'Save Skills' }}
+        </button>
+      </div>
+    </div>
+  </form>
+
+ 
+</div>

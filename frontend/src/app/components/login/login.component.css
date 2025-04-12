@@ -1,0 +1,147 @@
+
+/* Reset default styles and set a clean background */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Navbar styling for the logo */
+  .navbar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+  
+  .logo {
+    width: 40px;
+    height: auto;
+  }
+  
+  /* Main container to center all content */
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px; /* Reduced from 600px */
+    margin: 60px auto 0; /* Added top margin to avoid overlap with navbar */
+  }
+  
+  /* Image container for proper centering */
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px; /* Reduced from 30px */
+    text-align: center; /* Additional centering */
+  }
+  
+  /* Signup illustration styling */
+  .login-illustration {
+    max-width: 100%;
+    width: 300px; /* Set a specific width for the image */
+    height: auto;
+    margin: 0 auto; /* Center the image */
+    display: block; /* Necessary for margin: auto to work */
+  }
+  
+  /* Form container */
+  .form-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+  
+  /* Heading styling */
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Form styling */
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Form group styling */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .form-group label {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 12px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: #e6e6fa; /* Light purple background */
+    color: #333;
+    outline: none;
+    width: 100%;
+  }
+  
+  .form-group input::placeholder {
+    color: #999;
+  }
+  
+  /* Button styling */
+  button {
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    background-color: #d8bfd8; /* Slightly darker purple for the button */
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #c6a4c6; /* Slightly darker on hover */
+  }
+  
+  
+  
+  /* Additional media query for mobile devices */
+  @media (max-width: 600px) {
+    .main-container {
+      padding: 0 15px;
+    }
+    
+    .login-illustration {
+      width: 250px; /* Even smaller on mobile */
+    }
+  }
+  

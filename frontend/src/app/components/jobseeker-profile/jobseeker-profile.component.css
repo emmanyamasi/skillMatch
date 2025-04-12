@@ -1,0 +1,131 @@
+/* src/app/components/jobseeker-profile/jobseeker-profile.component.css */
+.container {
+  max-width: 900px;
+  padding: 20px;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-label {
+  color: #555;
+}
+
+.form-control, .form-select {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #104d8f;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+.text-danger {
+  font-size: 0.85rem;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background-color: lab(34.54% 67.33 -66.52);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  transform: scale(1.05);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.row.mb-4 {
+  transition: background-color 0.3s ease;
+}
+
+.row.mb-4:hover {
+  background-color: #f8f9fa !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn-lg {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .form-control, .form-select {
+    padding: 8px;
+  }
+}
