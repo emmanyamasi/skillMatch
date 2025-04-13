@@ -28,4 +28,4 @@ jobs:
           aws-region: eu-north-1
 
       - name: Deploy to S3
-        run: aws s3 sync frontend/dist/skillmatch/browser/ s3://myskillmatch-project --delete
+        run: aws s3 sync frontend/dist/frontend/browser/ s3://myskillmatch-project --delete
