@@ -15,10 +15,10 @@ jobs:
           node-version: '18'
 
       - name: Install frontend dependencies
-        run: cd frontend && npm install
+        run: cd skillMatch/frontend && npm install
 
       - name: Build Angular app
-        run: cd frontend && npm run build -- --configuration=production
+        run: cd sfrontend && npm run build -- --configuration=production
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
