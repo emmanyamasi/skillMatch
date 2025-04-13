@@ -14,6 +14,8 @@ import usersRoute from './routes/usersRoute'
 import authRoutes from './routes/authRoutes'
 import jobSeekerRoutes from './routes/jobSeekerRoutes'
 
+import jobseekerProfileRoutes from './routes/jobseekerProfileRoutes'
+
 
 // 1:dotenv
 dotenv.config()
@@ -43,6 +45,7 @@ app.use("/api/v1/auth", authRoutes)
 
 app.use("/api/v1/users", usersRoute)
 app.use('/api/v1/profile', jobSeekerRoutes);
+app.use('/api/v1/profileGET',jobseekerProfileRoutes)
 
 
 //5. middlewares for error handlers 
