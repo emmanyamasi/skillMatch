@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
+import { Router } from '@angular/router'; // Import Router for navigation
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { AuthResponse } from '../models/auth-response';
 export class AuthService {
   private apiUrl = 'http://localhost:5000/api/v1/auth'; // Base API URL
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router:Router) {}
 
   register(user: { name: string; email: string; password: string; role_id: number }): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user, { withCredentials: true });
@@ -27,6 +28,15 @@ export class AuthService {
     localStorage.setItem('refreshToken', response.access_token.refreshToken); // Store refresh token separately
     localStorage.setItem('user_id', response.user.id.toString()); // Store user_id
     localStorage.setItem('role_id', response.user.role_id.toString()); // Store role_id
+    if(response.user.role_id ===3){
+      this.router.navigate(['\jobseeker-dashboard']);
+
+    }else{
+      this.router.navigate(['/jobseeker']);
+    }
+
+
+
   } else {
           console.error('No valid access_token found in the response. Check backend.');
         }

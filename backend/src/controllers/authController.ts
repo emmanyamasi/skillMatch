@@ -23,8 +23,8 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
 
   // Insert New User
   const newUser = await pool.query(
-    "INSERT INTO users (name, email, password, role_id) VALUES ($1, $2, $3, $4) RETURNING id, name, email, role_id",
-    [name, email, hashedPassword, role_id]
+    "INSERT INTO users (name, email, password, role_id, profile_completed) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, email, role_id , profile_completed",
+    [name, email, hashedPassword, role_id,false]
   );
 
   // Generate JWT Token
@@ -43,7 +43,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
 
   // Check if user exists
   const userQuery = await pool.query(
-    `SELECT users.id, users.name, users.email, users.password, users.role_id, user_roles.role_name
+    `SELECT users.id, users.name, users.email, users.password, users.role_id,users.profile_completed, user_roles.role_name
      FROM users
      JOIN user_roles ON users.role_id = user_roles.id
      WHERE email = $1`,
@@ -73,6 +73,8 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
       email: user.email,
       role_id: user.role_id,
       role_name: user.role_name,
+      profileCompleted: user.profile_completed, 
+
     },
   });
 });

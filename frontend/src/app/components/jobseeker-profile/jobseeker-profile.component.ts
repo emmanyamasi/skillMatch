@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { SkillCategory } from '../../models/skillCategory';
 import { Skill } from '../../models/skills';
 import { JobseekerProfile } from '../../models/jobseeker';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-jobseeker-profile',
@@ -24,7 +25,8 @@ export class JobseekerProfileComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private profileService: JobseekerProfileService
+    private profileService: JobseekerProfileService,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
@@ -146,6 +148,8 @@ export class JobseekerProfileComponent implements OnInit {
       next: (response) => {
         this.isSubmitting = false;
         alert('Skills saved successfully!');
+        console.log('Navigating  to jobseeker-dashboard');
+        this.router.navigate(['/jobseeker-dashboard']); 
       },
       error: (error) => {
         console.error('Error saving skills:', error);
@@ -154,4 +158,8 @@ export class JobseekerProfileComponent implements OnInit {
       },
     });
   }
+
+
+ 
+
 }

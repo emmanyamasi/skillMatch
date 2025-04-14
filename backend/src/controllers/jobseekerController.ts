@@ -16,6 +16,7 @@ export const saveJobSeekerBasicInfo = async (req: UserRequest, res: Response) =>
 
   try {
     // Update user name in users table
+    await pool.query('BEGIN');
     await pool.query(`UPDATE users SET name = $1 WHERE id = $2`, [name, userId]);
 
     // Check if profile already exists
@@ -45,19 +46,21 @@ export const saveJobSeekerBasicInfo = async (req: UserRequest, res: Response) =>
       );
       profileId = result.rows[0].profile_id;
     }
+    await pool.query('COMMIT');
 
     res.status(201).json({ message: 'Basic info saved', profileId });
   } catch (error) {
     console.error(error);
+    await pool.query('ROLLBACK');
     res.status(500).json({ message: 'Error saving basic info' });
   }
 };
 
-// Save Jobseeker Skills
+
 export const saveJobSeekerSkills = async (req: UserRequest, res: Response) => {
   if (!req.user) {
     res.status(401).json({ message: 'Unauthorized' });
-    return
+    return;
   }
 
   const { profileId, skills } = req.body;
@@ -69,9 +72,10 @@ export const saveJobSeekerSkills = async (req: UserRequest, res: Response) => {
       [profileId, req.user.id]
     );
     if (profileCheck.rows.length === 0) {
-       res.status(403).json({ message: 'Profile does not belong to this user' });
-       return
+      res.status(403).json({ message: 'Profile does not belong to this user' });
+      return;
     }
+    await pool.query('BEGIN');
 
     // Delete existing skills for this profile (to avoid duplicates)
     await pool.query(`DELETE FROM jobseeker_skills WHERE profile_id = $1`, [profileId]);
@@ -87,12 +91,21 @@ export const saveJobSeekerSkills = async (req: UserRequest, res: Response) => {
 
     await Promise.all(skillInsertQueries);
 
+    // Mark profile as completed (skills section filled out)
+    await pool.query(
+      `UPDATE users SET profile_completed = $1 WHERE id = $2`,
+      [true, req.user.id]
+    );
+    await pool.query('COMMIT');
+
     res.status(201).json({ message: 'Skills saved successfully' });
   } catch (error) {
     console.error(error);
+    await pool.query('ROLLBACK');
     res.status(500).json({ message: 'Error saving skills' });
   }
 };
+
 
 // Get Skill Categories
 export const getSkillCategories = async (req: Request, res: Response) => {

@@ -9,7 +9,7 @@ import pool from '../config/dbconfig';
 export const getJobSeekerBasicInfo = async (req: UserRequest, res: Response) => {
     if (!req.user) {
       res.status(401).json({ message: 'Unauthorized' });
-      return;
+      return; 
     }
   
     const userId = req.user.id;

@@ -11,6 +11,8 @@ export interface User {
     password?: string; // Exclude password when returning user info
     role_id: number;
     role_name: string;
+    profile_completed: boolean; // Add this field to track profile completion
+    // other fields that you may already have
     created_at?: Date;
     updated_at?: Date;
 }
