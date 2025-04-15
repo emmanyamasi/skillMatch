@@ -1,1 +1,52 @@
-<p>jobseeker-dashboard works!</p>
+<!-- profile-navbar.component.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">
+      <img src="/logo.png" alt="Logo" height="40" />
+    </a>
+  
+    <!-- Profile section -->
+    <div class="ms-auto position-relative profile-wrapper">
+      <img
+        src="/pro.png"
+        alt="Profile"
+        height="40"
+        width="40"
+        class="rounded-circle border border-primary profile-icon"
+        id="profileDropdown"
+        (click)="toggleProfileDropdown()"
+      />
+  
+      <!-- Dropdown menu -->
+      <div
+        *ngIf="showProfileDropdown"
+        class="dropdown-menu dropdown-menu-end show profile-dropdown"
+      >
+        <!-- Loading state -->
+        <div *ngIf="isLoading" class="text-center">
+          <span class="spinner-border spinner-border-sm me-2"></span> Loading...
+        </div>
+  
+        <!-- Error -->
+        <div *ngIf="errorMessage && !isLoading" class="text-danger text-center">
+          {{ errorMessage }}
+        </div>
+  
+        <!-- Profile Info -->
+        <div *ngIf="!isLoading && basicInfo">
+          <p class="mb-1"><strong>Name:</strong> {{ basicInfo.name || 'Not available' }}</p>
+          <p class="mb-1"><strong>Phone:</strong> {{ basicInfo.phone || 'Not available' }}</p>
+          <p class="mb-1"><strong>Location:</strong> {{ basicInfo.location || 'Not available' }}</p>
+          <p class="mb-1"><strong>Portfolio:</strong>
+            <ng-container *ngIf="basicInfo.portfolioLink">
+              <a [href]="basicInfo.portfolioLink" target="_blank">{{ basicInfo.portfolioLink }}</a>
+            </ng-container>
+            <ng-container *ngIf="!basicInfo.portfolioLink">Not available</ng-container>
+          </p>
+          <hr />
+          
+        </div>
+      </div>
+    </div>
+  </nav>
+  

@@ -1,0 +1,62 @@
+/* Navbar layout: logo left, profile image right */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Wrapper for the profile image and dropdown */
+  .profile-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Profile image styling */
+  .profile-icon {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px solid #0d6efd; /* Primary blue border */
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+  }
+  
+  /* Profile image hover effect */
+  .profile-icon:hover {
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+  }
+  
+  /* Dropdown menu styling */
+  .profile-dropdown {
+    position: absolute;
+    right: 0;
+    top: 48px;
+    width: 260px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+
+
+  /* Transition animation for dropdown */
+.profile-dropdown {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+  }
+  
+  /* When dropdown is active (visible) */
+  .profile-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  
