@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # Postgres container
+  db:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: emmadb
+    ports:
+      - "5432:5432"  # Expose PostgreSQL to host on port 5432
+    networks:
+      - backend_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Mount the volume for persistent data
+    restart: always  # Ensure the container restarts if it crashes
+
+  # Node.js app container
+  backend:
+    build:
+      context: .  # Build the backend from the current directory
+    container_name: node_backend
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: root
+      DB_NAME: emmadb
+      JWT_SECRET: ${JWT_SECRET}  # Reference JWT_SECRET from the .env file
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}  # Reference REFRESH_TOKEN_SECRET from the .env file
+    ports:
+      - "5000:5000"  # Expose backend on port 5000
+    depends_on:
+      - db  # Ensure db is up before starting the backend
+    networks:
+      - backend_network
+    restart: always  # Ensure the container restarts if it crashes
+    env_file:
+      - .env  # Load environment variables from the .env file
+
+networks:
+  backend_network:
+    driver: bridge  # Use the bridge network mode
+
+volumes:
+  postgres_data:
+    driver: local  # Use the local driver for storing PostgreSQL data

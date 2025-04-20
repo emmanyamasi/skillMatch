@@ -47,4 +47,24 @@ export class JobseekerProfileService {
     });
     return this.http.get<Skill[]>(`${this.apiUrl}/profile/skills`, { headers });
   }
+
+  getJobSeekerBasicInfo(): Observable<JobseekerProfile> {
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get<JobseekerProfile>(`${this.apiUrl}/profileGET/basic`, { headers });
+  }
+
+
+
+  getJobSeekerSkills(): Observable<Skill[]> {
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get<Skill[]>(`${this.apiUrl}/profileGET/skills`, { headers });
+  }
+
+
 }

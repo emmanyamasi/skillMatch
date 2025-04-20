@@ -15,6 +15,7 @@ import authRoutes from './routes/authRoutes'
 import jobSeekerRoutes from './routes/jobSeekerRoutes'
 
 import jobseekerProfileRoutes from './routes/jobseekerProfileRoutes'
+import employerRoutes from './routes/employerRoutes'
 
 
 // 1:dotenv
@@ -46,6 +47,9 @@ app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/users", usersRoute)
 app.use('/api/v1/profile', jobSeekerRoutes);
 app.use('/api/v1/profileGET',jobseekerProfileRoutes)
+console.log('Mounting employerRoutes...');
+app.use('/api/v1/employer', employerRoutes);
+console.log('employerRoutes mounted successfully');
 
 
 //5. middlewares for error handlers 

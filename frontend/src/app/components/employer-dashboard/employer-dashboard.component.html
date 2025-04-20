@@ -1,0 +1,78 @@
+<div class="dashboard-container">
+
+
+  
+    <h2>Welcome to Your Dashboard</h2>
+  
+    <button class="post-job-btn" (click)="showModal = true">Post a Job</button><br><br>
+  
+    <!-- Modal -->
+    <div class="modal-backdrop" *ngIf="showModal">
+      <div class="modal">
+        <h3>Post a New Job</h3>
+  
+        <form (ngSubmit)="submitJob()" #jobForm="ngForm">
+          <label>
+            Job Title:
+            <input type="text" name="title" [(ngModel)]="newJob.title" required />
+          </label>
+  
+          <label>
+            Company Name:
+            <input type="text" name="company_name" [(ngModel)]="newJob.company_name" required />
+          </label>
+  
+          <label>
+            Location:
+            <input type="text" name="location" [(ngModel)]="newJob.location" required />
+          </label>
+  
+          <label>
+            Description:
+            <textarea name="description" [(ngModel)]="newJob.description" required></textarea>
+          </label>
+  
+          <label>
+            Skills (comma separated):
+            <input 
+              type="text" 
+              name="skills" 
+              [(ngModel)]="skillsInput" 
+              placeholder="e.g. HTML, CSS, JavaScript" 
+            />
+          </label>
+  
+          <div class="modal-actions">
+            <button type="submit" [disabled]="!jobForm.form.valid">Submit</button>
+            <button type="button" (click)="showModal = false">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Loading and job list stay as they were -->
+    <div *ngIf="isLoading" class="loading">Loading jobs...</div>
+  
+    <div *ngIf="!isLoading && jobs.length === 0" class="empty-state">
+      <p>You haven’t posted any jobs yet.</p>
+    </div>
+  
+    <div *ngIf="!isLoading && jobs.length > 0" class="job-list">
+      <div *ngFor="let job of jobs" class="job-card">
+        <h3>{{ job.title }}</h3>
+        <p><strong>Company:</strong> {{ job.company_name }}</p>
+        <p><strong>Location:</strong> {{ job.location }}</p>
+        <p class="description">{{ job.description }}</p>
+  
+        <div *ngIf="job.required_skills?.length">
+          <strong>Skills Required:</strong>
+          <ul class="skills-list">
+            <li *ngFor="let skill of job.required_skills">{{ skill }}</li>
+          </ul>
+        </div>
+  
+        <button (click)="viewApplications(job.job_id)">View Applications</button>
+      </div>
+    </div>
+  </div>
+  

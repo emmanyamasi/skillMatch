@@ -1,62 +1,99 @@
 /* Navbar layout: logo left, profile image right */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-  }
-  
-  /* Wrapper for the profile image and dropdown */
-  .profile-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
-  /* Profile image styling */
-  .profile-icon {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    border: 2px solid #0d6efd; /* Primary blue border */
-    cursor: pointer;
-    transition: box-shadow 0.2s ease;
-  }
-  
-  /* Profile image hover effect */
-  .profile-icon:hover {
-    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
-  }
-  
-  /* Dropdown menu styling */
-  .profile-dropdown {
-    position: absolute;
-    right: 0;
-    top: 48px;
-    width: 260px;
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 0.375rem;
-    padding: 1rem;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
 
+/* Wrapper for the profile image and dropdown */
+.profile-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
+/* Profile image styling */
+.profile-icon {
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  border: 2px solid #0d6efd; /* Bootstrap Primary blue */
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, transform 0.2s ease-in-out;
+}
 
-  /* Transition animation for dropdown */
+/* Profile image hover effect */
+.profile-icon:hover {
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.2);
+  transform: scale(1.05);
+}
+
+/* Dropdown menu container */
 .profile-dropdown {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
+  position: absolute;
+  top: 52px;
+  right: 0;
+  width: 270px;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  z-index: 1000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+/* Show dropdown with animation */
+.profile-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Basic info styling inside dropdown */
+.profile-dropdown p {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Link styling */
+.profile-dropdown a {
+  color: #0d6efd;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.profile-dropdown a:hover {
+  text-decoration: underline;
+}
+
+/* Divider style */
+.profile-dropdown hr {
+  margin: 0.75rem 0;
+  border-color: #dee2e6;
+}
+
+/* Error and loading styles */
+.text-danger {
+  font-size: 0.875rem;
+}
+
+.spinner-border {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Responsive fix: force dropdown to stay in view */
+@media (max-width: 576px) {
+  .profile-dropdown {
+    right: -20px;
+    width: 95vw;
   }
-  
-  /* When dropdown is active (visible) */
-  .profile-dropdown.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  
-  
+}
